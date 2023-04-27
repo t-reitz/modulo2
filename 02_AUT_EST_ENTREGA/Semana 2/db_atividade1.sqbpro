@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/a/Desktop/Godot Projects/modulo2/02_AUT_EST_ENTREGA/Semana 2/db_atividade1.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1327"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,10:mainconquistas"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">-- cria a tabela pessoa
+CREATE TABLE pessoa (
+  ID_Pessoa INTEGER PRIMARY KEY,
+  Nome TEXT,
+  Idade INTEGER,
+  Email TEXT,
+  Telefone TEXT,
+  Endereco TEXT,
+  Descricao TEXT
+);
+
+-- cria a tabela formacao_academica
+CREATE TABLE formacao_academica (
+  ID_Formacao INTEGER PRIMARY KEY AUTOINCREMENT,
+  ID_Pessoa INTEGER,
+  Nome_fundacao TEXT,
+  Nome_curso TEXT,
+  Data_inicio DATE,
+  Data_fim DATE,
+  Descricao TEXT,
+  FOREIGN KEY (ID_Pessoa) REFERENCES pessoa(ID_Pessoa)
+);
+
+-- cria a tabela habilidades
+CREATE TABLE habilidades (
+  ID_Habilidade INTEGER PRIMARY KEY AUTOINCREMENT,
+  ID_Pessoa INTEGER,
+  Nome_habilidade TEXT,
+  Nivel_atingido INTEGER,
+  Descricao TEXT,
+  FOREIGN KEY (ID_Pessoa) REFERENCES pessoa(ID_Pessoa)
+);
+
+-- cria a tabela conquistas
+CREATE TABLE conquistas (
+  ID_Conquista INTEGER PRIMARY KEY AUTOINCREMENT,
+  ID_Pessoa INTEGER,
+  Nome_conquista TEXT,
+  Data_conquista DATE,
+  Descricao TEXT,
+  FOREIGN KEY (ID_Pessoa) REFERENCES pessoa(ID_Pessoa)
+);
+
+-- cria a tabela personalidade
+CREATE TABLE personalidade (
+  ID_Personalidade INTEGER PRIMARY KEY AUTOINCREMENT,
+  ID_Pessoa INTEGER,
+  Nome_personalidade TEXT,
+  Nivel INTEGER,
+  Descricao TEXT,
+  FOREIGN KEY (ID_Pessoa) REFERENCES pessoa(ID_Pessoa)
+);
+
+-- cria a tabela experiencia_profissional
+CREATE TABLE experiencia_profissional (
+  ID_Experiencia INTEGER PRIMARY KEY AUTOINCREMENT,
+  ID_Pessoa INTEGER,
+  Nome_empresa TEXT,
+  Nome_cargo TEXT,
+  Data_inicio DATE,
+  Data_fim DATE,
+  Descricao TEXT,
+  FOREIGN KEY (ID_Pessoa) REFERENCES pessoa(ID_Pessoa)
+);</sql><current_tab id="0"/></tab_sql></sqlb_project>
