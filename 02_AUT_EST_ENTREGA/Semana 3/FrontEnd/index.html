@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Curriculum</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1>Curriculum</h1>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="edit.html">Edit</a></li>
+          <li><a href="delete.html">Delete</a></li>
+          <li><a href="cv.html">CV View</a></li>
+        </ul>
+      </nav>
+    </header>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Endereço</th>
+          <th>Descrição</th>
+        </tr>
+      </thead>
+      <tbody id="pessoaTable">
+        <!-- Table rows will be added dynamically by JavaScript -->
+      </tbody>
+    </table>
+    <div>  
+      <tfoot>
+        <tr>
+          <td>
+            <!-- Add a form to the new row for adding a person -->
+            <form id="add-person-form">
+              <input type="text" name="Nome" placeholder="Nome" required>
+              <input type="number" name="Idade" placeholder="Idade" required>
+              <input type="email" name="Email" placeholder="Email" required>
+              <input type="text" name="Telefone" placeholder="Telefone" required>
+              <input type="text" name="Endereco" placeholder="Endereço" required>
+              <input type="text" name="Descricao" placeholder="Descrição" required>
+              <button type="submit">Adicionar</button>
+            </form>
+          </td>
+        </tr>
+      </tfoot>
+    </div>
+    <script>
+      $(document).ready(function() {
+        loadData();
+      });
+
+      // Define funcao para dar load em data do servidor
+      function loadData() {
+        $.ajax({
+          url: '/showPessoa',
+          method: 'GET',
+          success: function(data) {
+            $('#pessoaTable').empty();
+
+            // Adiciona rows a table
+            data.forEach(function(pessoa) {
+              var row = $('<tr>');
+              row.append($('<td>').text(pessoa.ID_Pessoa));
+              row.append($('<td>').text(pessoa.Nome));
+              row.append($('<td>').text(pessoa.Idade));
+              row.append($('<td>').text(pessoa.Email));
+              row.append($('<td>').text(pessoa.Telefone));
+              row.append($('<td>').text(pessoa.Endereco));
+              row.append($('<td>').text(pessoa.Descricao));
+              $('#pessoaTable').append(row);
+            });
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Error: ' + errorThrown);
+          }
+        });
+      }
+
+      // Define funcao que adiciona pessoa
+      function addPerson() {
+        var form = $('#add-person-form');
+
+        // AJAX request para servidor
+        $.ajax({
+          // define variaveis
+          url: '/inserePessoa',
+          method: 'POST',
+          data: form.serialize(),
+          success: function(data) {
+            // Reload pagina para visualizar nova pessoa
+            location.reload();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Error: ' + errorThrown);
+          }
+        });
+      }
+
+      // Bind eventos com funcao addPerson
+      $('#add-person-form').submit(function(event) {
+        event.preventDefault();
+        addPerson();
+      });
+    </script>
+  </body>
+</html>

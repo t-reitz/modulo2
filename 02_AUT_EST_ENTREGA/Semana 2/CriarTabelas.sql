@@ -1,6 +1,6 @@
 -- cria a tabela pessoa
 CREATE TABLE pessoa (
-  ID_Pessoa INTEGER PRIMARY KEY,
+  ID_Pessoa INTEGER PRIMARY KEY AUTOINCREMENT,
   Nome TEXT,
   Idade INTEGER,
   Email TEXT,
