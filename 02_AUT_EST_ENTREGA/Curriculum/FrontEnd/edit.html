@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Pessoa</title>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Edit Pessoa</h1>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="edit.html">Edit</a></li>
+        <li><a href="delete.html">Delete</a></li>
+        <li><a href="cv.html">CV View</a></li>
+      </ul>
+    </nav>
+  </header>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Endereço</th>
+        <th>Descrição</th>
+      </tr>
+    </thead>
+    <tbody id="pessoaTable">
+    </tbody>
+  </table>
+  <button class="editButton" id="saveBtn" disabled>Salvar</button>
+  
+
+  <script>
+    $(document).ready(function() {
+        // Load existing data
+        loadData();
+
+        // Set up event listener on row to enable Save Changes button
+        $('#pessoaTable').on('input', 'input', function() {
+            $('#saveBtn').attr('disabled', false);
+        });
+
+        // Set up event listener on Save Changes button to update all persons
+        $('#saveBtn').on('click', function() {
+            updateAllPersons();
+        });
+        });
+
+        function loadData() {
+        $.ajax({
+            url: '/showPessoa',
+            method: 'GET',
+            success: function(data) {
+            $('#pessoaTable').empty();
+
+            data.forEach(function(pessoa) {
+                var row = $('<tr>');
+                row.append($('<td>').text(pessoa.ID_Pessoa));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Nome').val(pessoa.Nome)));
+                row.append($('<td>').append($('<input>').attr('type', 'number').attr('id', 'Idade').val(pessoa.Idade)));
+                row.append($('<td>').append($('<input>').attr('type', 'email').attr('id', 'Email').val(pessoa.Email)));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Telefone').val(pessoa.Telefone)));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Endereco').val(pessoa.Endereco)));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Descricao').val(pessoa.Descricao)));
+                $('#pessoaTable').append(row);
+                
+            });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Error: ' + errorThrown);
+            }
+        });
+        }
+
+        function updateAllPersons() {
+  var data = [];
+  var pessoaTable = document.querySelector('#pessoaTable tbody');
+  var nomeInput = document.querySelector('#Nome');
+
+  console.log(nomeInput.value);
+
+  var rows = pessoaTable.querySelectorAll('tr');
+  rows.forEach(function(row) {
+    console.log(row.textContent);
+
+    var id = row.querySelector('td:first-child').textContent;
+    var nome = row.querySelector('input[id="Nome"]').value;
+    var idade = row.querySelector('input[id="Idade"]').value;
+    var email = row.querySelector('input[id="Email"]').value;
+    var telefone = row.querySelector('input[id="Telefone"]').value;
+    var endereco = row.querySelector('input[id="Endereco"]').value;
+    var descricao = row.querySelector('input[id="Descricao"]').value;
+
+    data.push({
+      ID_Pessoa: id,
+      Nome: nome,
+      Idade: idade,
+      Email: email,
+      Telefone: telefone,
+      Endereco: endereco,
+      Descricao: descricao
+    });
+  });
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/updatePessoa');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    console.log(xhr.responseText);
+    alert('Changes saved successfully.');
+    document.querySelector('#saveBtn').disabled = true;
+  };
+  xhr.onerror = function() {
+    console.log('Error:' + xhr.statusText);
+    alert('Error while saving changes.');
+  };
+  xhr.send(JSON.stringify(data));
+
+  document.querySelector('#saveBtn').disabled = true;
+}
+  </script>
+</body>
+</html>

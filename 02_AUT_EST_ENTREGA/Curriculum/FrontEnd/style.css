@@ -1,0 +1,177 @@
+/* Set font family and size */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #002861;
+  background-color: #FFFFFF;
+}
+
+  header nav ul {
+  list-style: none;
+  margin: 2px;
+  padding: 10px;
+}
+
+header nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* Set header style */
+h1 {
+  color: #073886;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Set link style */
+a {
+  color: #073886;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Set table style */
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 100%;
+}
+
+table th,
+table td {
+  border: 0px;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background-color: #073886;
+  color: #FFFFFF;
+  font-size: 20px;
+}
+
+/* Set form style */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #8F8F8F;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"] {
+  border: 2px solid #073886;
+  border-radius: 4px;
+  padding: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  width: 200px;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="email"]:focus {
+  outline: none;
+  border-color: #002861;
+}
+
+button {
+  border: none;
+  border-radius: 4px;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #073886;
+  color: #FFFFFF;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover:enabled {
+  background-color: #002861;
+}
+
+button:hover:disabled {
+  background-color: #696969;
+}
+
+button:disabled,
+button[disabled]{
+  border: none;
+  background-color: #8F8F8F;
+  color: #FFFFFF;
+}
+
+.editButton {
+  font-size: 18px;
+  margin-top: 16px;
+  font-weight: bold;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+/* Set tfoot style */
+tfoot {
+  border: 1px solid #8F8F8F;
+  margin-top: 16px;
+  margin: 4px;
+  padding: 8px;
+}
+
+/*/////////////// CV VIEW ///////////////*/
+
+#header {
+	background-color: #073886;
+	color: #fff;
+	padding: 20px;
+}
+
+#full-name {
+  color: #fff
+}
+
+.sidebar-bg {
+	background-color: #e6e6e6;
+	padding: 20px;
+}
+
+#description {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+#education {
+	background-color: #f2f2f2;
+	padding: 20px;
+}
+
+#experience {
+	background-color: #f2f2f2;
+	padding: 20px;
+}
+
+.sidebar-tables {
+  border-color: #e6e6e6;
+}
+
+.contact-info h2,
+.personal-info h2,
+.education h2,
+.experience h2 {
+	margin-top: 0;
+}
