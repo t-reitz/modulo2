@@ -44,9 +44,9 @@ table {
 
 table th,
 table td {
-  border: 1px solid #8F8F8F;
+  border: 0px;
   padding: 8px;
-  text-align: left;
+  text-align: center;
 }
 
 table th {
@@ -131,4 +131,47 @@ tfoot {
   margin-top: 16px;
   margin: 4px;
   padding: 8px;
+}
+
+/*/////////////// CV VIEW ///////////////*/
+
+#header {
+	background-color: #073886;
+	color: #fff;
+	padding: 20px;
+}
+
+#full-name {
+  color: #fff
+}
+
+.sidebar-bg {
+	background-color: #e6e6e6;
+	padding: 20px;
+}
+
+#description {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+#education {
+	background-color: #f2f2f2;
+	padding: 20px;
+}
+
+#experience {
+	background-color: #f2f2f2;
+	padding: 20px;
+}
+
+.sidebar-tables {
+  border-color: #e6e6e6;
+}
+
+.contact-info h2,
+.personal-info h2,
+.education h2,
+.experience h2 {
+	margin-top: 0;
 }

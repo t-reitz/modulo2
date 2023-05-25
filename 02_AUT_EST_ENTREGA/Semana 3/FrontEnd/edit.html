@@ -54,7 +54,7 @@
 
         function loadData() {
         $.ajax({
-            url: '/show',
+            url: '/showPessoa',
             method: 'GET',
             success: function(data) {
             $('#pessoaTable').empty();
@@ -62,14 +62,14 @@
             data.forEach(function(pessoa) {
                 var row = $('<tr>');
                 row.append($('<td>').text(pessoa.ID_Pessoa));
-                row.append($('<td>').append($('<input>').attr('type', 'text').attr('name', 'Nome').val(pessoa.Nome)));
-                row.append($('<td>').append($('<input>').attr('type', 'number').attr('name', 'Idade').val(pessoa.Idade)));
-                row.append($('<td>').append($('<input>').attr('type', 'email').attr('name', 'Email').val(pessoa.Email)));
-                row.append($('<td>').append($('<input>').attr('type', 'text').attr('name', 'Telefone').val(pessoa.Telefone)));
-                row.append($('<td>').append($('<input>').attr('type', 'text').attr('name', 'Endereco').val(pessoa.Endereco)));
-                row.append($('<td>').append($('<input>').attr('type', 'text').attr('name', 'Descricao').val(pessoa.Descricao)));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Nome').val(pessoa.Nome)));
+                row.append($('<td>').append($('<input>').attr('type', 'number').attr('id', 'Idade').val(pessoa.Idade)));
+                row.append($('<td>').append($('<input>').attr('type', 'email').attr('id', 'Email').val(pessoa.Email)));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Telefone').val(pessoa.Telefone)));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Endereco').val(pessoa.Endereco)));
+                row.append($('<td>').append($('<input>').attr('type', 'text').attr('id', 'Descricao').val(pessoa.Descricao)));
                 $('#pessoaTable').append(row);
-                console.log("-----------------------"+row.find('td:nth-child(2)').text());
+                
             });
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -78,47 +78,52 @@
         });
         }
 
-    function updateAllPersons() {
-      var data = [];
-      $('#pessoaTable tbody tr').each(function() {
-        var row = $(this);
-        var id = row.find('td:first-child').text();
-        var nome = row.find('input[name="Nome"]').val();
-        var idade = row.find('input[name="Idade"]').val();
-        var email = row.find('input[name="Email"]').val();
-        var telefone = row.find('input[name="Telefone"]').val();
-        var endereco = row.find('input[name="Endereco"]').val();
-        var descricao = row.find('input[name="Descricao"]').val();
+        function updateAllPersons() {
+  var data = [];
+  var pessoaTable = document.querySelector('#pessoaTable tbody');
+  var nomeInput = document.querySelector('#Nome');
 
-        data.push({
-          ID_Pessoa: id,
-          Nome: nome,
-          Idade: idade,
-          Email: email,
-          Telefone: telefone,
-          Endereco: endereco,
-          Descricao: descricao
-        });
-      });
+  console.log(nomeInput.value);
 
-      $.ajax({
-        url: '/updatePessoa',
-        method: 'POST',
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        success: function(response) {
-          console.log(response);
-          alert('Changes saved successfully.');
-          $('#saveBtn').attr('disabled', true);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log('Error: ' + errorThrown);
-          alert('Error while saving changes.');
-        }
-      });
+  var rows = pessoaTable.querySelectorAll('tr');
+  rows.forEach(function(row) {
+    console.log(row.textContent);
 
-      $('#saveBtn').attr('disabled', true);
-    }
+    var id = row.querySelector('td:first-child').textContent;
+    var nome = row.querySelector('input[id="Nome"]').value;
+    var idade = row.querySelector('input[id="Idade"]').value;
+    var email = row.querySelector('input[id="Email"]').value;
+    var telefone = row.querySelector('input[id="Telefone"]').value;
+    var endereco = row.querySelector('input[id="Endereco"]').value;
+    var descricao = row.querySelector('input[id="Descricao"]').value;
+
+    data.push({
+      ID_Pessoa: id,
+      Nome: nome,
+      Idade: idade,
+      Email: email,
+      Telefone: telefone,
+      Endereco: endereco,
+      Descricao: descricao
+    });
+  });
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/updatePessoa');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    console.log(xhr.responseText);
+    alert('Changes saved successfully.');
+    document.querySelector('#saveBtn').disabled = true;
+  };
+  xhr.onerror = function() {
+    console.log('Error:' + xhr.statusText);
+    alert('Error while saving changes.');
+  };
+  xhr.send(JSON.stringify(data));
+
+  document.querySelector('#saveBtn').disabled = true;
+}
   </script>
 </body>
 </html>
